@@ -1,10 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 {% load static %}
-{% block content%}
-Page for adding serum levels
-        <form action="/application_url/" method="post">
-            <label for="customer_name">What is your name:</label>
-            <input id="cust_name" type="text" name="cust_name">
-            <input type="submit" value="Save">
-        </form>     
+{% block content %}
+<div class = "container">
+    <div class = "text-left">
+        <h2 class = "section=heading text-uppercase">Add Serum Reading</h2>
+    </div>
+    <br>
+    <form name="form" method="post" action="{% url 'add-level' %}">
+        {% csrf_token %}
+        <label for='log_date'>Date of the log:</label>
+        <input type="date" name="log_date" id="log_date" autofocus>
+        <br><br>
+
+        <label for= 'level'>Serum Levels:</label>
+        <input type="text" name="level" id="level">
+        <br><br>
+
+        <button type="submit">Update</button>
+    </form>
 {% endblock %}
