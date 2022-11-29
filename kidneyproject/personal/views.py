@@ -3,16 +3,16 @@ from django.http import HttpResponse
 
 # Create your views here.
 def indexPageView(request) :
-    return render(request, 'base.html')
+    return render(request, 'personal/index.html')
 
 def foodJournalView(request) :
-    return HttpResponse('This will be the food journal page')
+    return render(request, 'personal/journal.html')
 
 def addFoodView(request) :
-    return HttpResponse('Page for adding new food')
+    return render(request, 'personal/food.html')
 
 def levelsLogView(request) :
-    return HttpResponse('This page will have serum levels info')
+    return render(request, 'personal/serumlevels.html')
 
 def addLevelView(request) :
-    return HttpResponse('Page for adding serum levels')
+    return render(request, 'personal/serumlevels.html')
