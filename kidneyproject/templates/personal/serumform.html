@@ -16,6 +16,13 @@
         <input type="text" name="level" id="level">
         <br><br>
 
+        <label for='serum_name'>Select Serum Type:</label> 
+        <select name='serum_name' id ="serum_name">
+            {% for names in serum %}
+            <option value="{{serum.name}}">{{serum.name}}, ( {{serum.units}} )</option>
+            {% endfor %}
+        </select>
+
         <button type="submit">Update</button>
     </form>
 {% endblock %}

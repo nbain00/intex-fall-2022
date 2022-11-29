@@ -78,4 +78,4 @@ class SerumLevelLog(models.Model) :
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
 
     def __str__(self) :
-        return (self.log_date)
+        return (str(self.log_date))
