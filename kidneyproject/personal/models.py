@@ -19,8 +19,9 @@ class Patient(models.Model) :
     age = models.BigIntegerField()
     weight = models.DecimalField(max_digits=3, decimal_places=2)
     height = models.BigIntegerField()
-    kidney_stage = models.ForeignKey(KidneyStage, blank=False, on_delete=models.DO_NOTHING)
-    comorbidity = models.ManyToManyField(Comorbidity, blank=True, on_delete=models.DO_NOTHING)
+    kidney_stage = models.ForeignKey(KidneyStage, on_delete=models.DO_NOTHING)
+    comorbidity = models.ManyToManyField(Comorbidity, blank=True)
+    unit_preference = models.CharField(max_length=20)
 
     def __str__(self) :
         return (self.first_name + ' ' + self.last_name)
@@ -28,7 +29,7 @@ class Patient(models.Model) :
 class MealLog(models.Model) :
     log_date = models.DateTimeField(auto_now=False, auto_now_add=False)
     meal_type = models.CharField(max_length=50)
-    patient = models.ForeignKey(Patient, blank=False, on_delete=models.DO_NOTHING)
+    patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
 
     def __str__(self) :
         return (self.log_date + ' ' + self.meal_type)
@@ -57,8 +58,8 @@ class Food(models.Model) :
 
 class FoodinMeal(models.Model) :
     amount = models.BigIntegerField()
-    meal_log = models.ForeignKey(MealLog, blank=False, on_delete=models.DO_NOTHING)
-    food = models.ForeignKey()
+    meal_log = models.ForeignKey(MealLog, on_delete=models.DO_NOTHING)
+    food = models.ForeignKey(Food, on_delete=models.DO_NOTHING)
 
     def __str__(self) :
         return (self.food)
@@ -73,8 +74,8 @@ class SerumType(models.Model) :
 class SerumLevelLog(models.Model) :
     log_date = models.DateTimeField(auto_now=False, auto_now_add=False)
     level = models.DecimalField(max_digits=6, decimal_places=2)
-    serum_type = models.ForeignKey(SerumType, blank=False, on_delete=models.DO_NOTHING)
-    patient = models.ForeignKey(Patient, blank=False, on_delete=models.DO_NOTHING)
+    serum_type = models.ForeignKey(SerumType, on_delete=models.DO_NOTHING)
+    patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
 
     def __str__(self) :
         return (self.log_date)
