@@ -32,8 +32,7 @@ class MealLog(models.Model) :
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
 
     def __str__(self) :
-        return (self.log_date + ' ' + self.meal_type)
-
+        return (str(self.log_date.month) + '/' + str(self.log_date.day) + '/' + str(self.log_date.year) + ' ' + self.patient.first_name + ' ' + self.patient.last_name + self.meal_type)
 class Food(models.Model) :
     measurement_type = models.CharField(max_length=5)
     name = models.CharField(max_length=111)
@@ -78,4 +77,4 @@ class SerumLevelLog(models.Model) :
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
 
     def __str__(self) :
-        return (str(self.log_date))
+        return (str(self.log_date.month) + '/' + str(self.log_date.day) + '/' + str(self.log_date.year) + ' ' + self.patient.first_name + ' ' + self.patient.last_name)
