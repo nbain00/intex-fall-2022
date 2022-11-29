@@ -14,6 +14,10 @@ def addFoodView(request) :
     return render(request, 'personal/food.html')
 
 def levelsLogView(request) :
+    data = SerumLevelLog.objects.all()
+    context = {
+        "serum" : data
+    }
     return render(request, 'personal/serumlevels.html')
 
 def addLevelView(request) :
@@ -27,3 +31,8 @@ def addLevelView(request) :
         return levelsLogView(request)
     else:
         return render(request, 'personal/serumlevels.html')
+
+def deleteLogView(request, type, pat) :
+    data = SerumLevelLog.objects.get(serum_type = type, patient =pat)
+    data.delete()
+    return levelsLogView(request)
