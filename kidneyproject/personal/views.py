@@ -5,6 +5,7 @@ from .models import Patient
 
 # Create your views here.
 def indexPageView(request) :
+    data = None
     return render(request, 'personal/index.html')
 
 def foodJournalView(request) :
