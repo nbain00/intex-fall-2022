@@ -32,7 +32,7 @@ class MealLog(models.Model) :
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
 
     def __str__(self) :
-        return (self.log_date + ' ' + self.meal_type)
+        return (str(self.log_date) + ' ' + str(self.meal_type))
 
 class Food(models.Model) :
     measurement_type = models.CharField(max_length=5)

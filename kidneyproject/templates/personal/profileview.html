@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+On this page the user can view their profile as a form that they can make edits to
+        <form name="form" method="post" action="{% url 'showProfile' userid=3 %} " userid = {{profile.id}}>
+            {% csrf_token %}
+            <input type = "hidden" id="cust_id" name="cust_id" value="{{profile.id}}">
+    
+            <label for='first_name'>First name:</label>
+            <input type="text" name="first_name" id="first_name" value="{{profile.first_name}}" autofocus>
+            <br><br>
+    
+            <label for= 'last_name'>Last name:</label>
+            <input type="text" name="last_name" id="last_name" value="{{profile.last_name}}">
+            <br><br>
+
+            <label for= 'age'>Age:</label>
+            <input type="text" name="age" id="age" value="{{profile.age}}">
+            <br><br>
+    
+            <label for='weight'>Weight:</label>
+            <input type="text" name="weight" id="weight" value = "{{profile.weight}}">
+            <br><br>
+    
+            <label for='height'>Height:</label>
+            <input type="text" name = 'height' id = 'height' value = "{{profile.height}}">
+            <br><br>
+    
+            <label for='unit_preference'>Unit Preference:</label> 
+            <select name='unit_preference' id ="unit_preference">
+                <option value="us">US</option>
+                <option value="metric">Metric</option>
+            </select>          
+            <br><br>
+
+            <label for='kidney_stage'>Select Kidney Stage:</label> 
+            <select name='kidney_stage' id ="kidney_stage">
+                {% for names in stage %}
+                <option value="{{names.id}}">{{names.name}}</option>
+                {% endfor %}
+            </select>
+
+            <label for='comorbidity'>Select Cormobity:</label> 
+            <select name='comorbidity' id ="comorbidity">
+                {% for names in comor %}
+                <option value="{{names.id}}">{{names.name}}</option>
+                {% endfor %}
+            </select>
+    
+            <input type="submit" value="Save and Exit">
+        </form>     
+{% endblock %}
