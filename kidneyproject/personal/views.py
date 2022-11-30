@@ -29,7 +29,11 @@ def indexPageView(request) :
         "k_mg" : 0,
         "na_mg" : 0,
         "total_saturated_fat_g" : 0,
-        "total_unsaturated_fat_g" : 0
+        "total_unsaturated_fat_g" : 0,
+        "RDA_water": 3200,
+        "RDA_protein": 0.8,
+        "RDA_na": 2300,
+        "RDA_carbs": 300
     }
     foods =[]
     for p in Patient.objects.raw("SELECT pp.id, amount, calories_kj, water_g, protein_g, total_fat_g, total_fiber_g, alcohol_g, total_sugars_g, added_sugars_g, total_carbs_g, ca_mg, phos_mg, k_mg, na_mg, total_saturated_fat_g, total_unsaturated_fat_g FROM personal_patient pp INNER JOIN personal_meallog ml ON pp.id = ml.patient_id INNER JOIN personal_foodinmeal fm ON ml.id = fm.meal_log_id INNER JOIN personal_food f ON fm.food_id = f.id WHERE pp.id =" + patient_id + " AND log_date = '" + current_date + "'") :
