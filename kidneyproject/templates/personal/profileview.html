@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}
+<title>Profile</title>
+{% endblock %}
 {% block content%}
 On this page the user can view their profile as a form that they can make edits to
-        <form name="form" method="post" action="{% url 'showProfile' userid=3 %} " userid = {{profile.id}}>
+        <form name="form" method="post" action="{% url 'showProfile' userid=pat.id %} " userid = {{profile.id}}>
             {% csrf_token %}
             <input type = "hidden" id="cust_id" name="cust_id" value="{{profile.id}}">
     

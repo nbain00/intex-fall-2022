@@ -1,13 +1,17 @@
 {% extends 'base.html'%}
 {% load static %}
+{% block title %}
+<title>Add Levels</title>
+{% endblock %}
 {% block content %}
 <div class = "container">
     <div class = "text-left">
         <h2 class = "section=heading text-uppercase">Add Serum Reading</h2>
     </div>
     <br>
-    <form name="form" method="post" action="{% url 'add-level' %}">
+    <form name="form" method="post" action="{% url 'add-level' userid=pat.id%}">
         {% csrf_token %}
+        <input type="hidden" value="{{pat.id}}" name="pat_id">
         <label for='log_date'>Date of the log:</label>
         <input type="date" name="log_date" id="log_date" autofocus>
         <br><br>

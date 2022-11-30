@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}
+<title>Add Food</title>
+{% endblock %}
 {% block content%}
 Page for adding new food
-        <form name="form" action="{% url 'add-food' %}" method="post">
+        <form name="form" action="{% url 'add-food' userid=pat.id %}" method="post">
             {% csrf_token %}
             <label for="measurement_type">Select measurement type:</label>
             <select name="measurement_type" id="measurement_type">
