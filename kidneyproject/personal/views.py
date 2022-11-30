@@ -198,9 +198,13 @@ def addFoodView(request, userid) :
 def levelsLogView(request, userid) :
     data = SerumLevelLog.objects.filter(patient=userid)
     data2 = Patient.objects.get(id=userid)
+    levels =[]
+    for p in SerumLevelLog.objects.raw("SELECT * FROM personal_serumlevellog sl INNER JOIN personal_serumtype st ON sl.serum_type_id = st.id WHERE patient_id = " + str(userid)):
+        levels.append(p)
     context = {
         "serum" : data,
-        "pat" : data2
+        "pat" : data2,
+        "levels" : levels
     }
     return render(request, 'personal/serumlevels.html', context)
 
