@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Add Food in Meal</title>
+{% endblock %}
+{% block content%}
+Page for adding new food in meal
+        <form name="form" action="{% url 'food-in-meal' userid=pat.id mealtype=meal_type logid=log_id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" value=pat.id name="userid">
+            <input type="hidden" value=meal_type name="mealtype">
+            <input type="hidden" value=log_id name="logid">
+            <label for="measurement_type">Select measurement type:</label>
+            <br>
+            <label for="food">Name of Food:</label>
+            <select name="food" id ="food">
+                {% for foods in food %}
+                <option value="{{foods.id}}">{{foods.name}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="amount">Amount in grams or ounces:</label>
+            <input id="amount" type="number" name="amount">
+            <br>    
+            <input type="submit" value="Add">
+        </form>     
+{% endblock %}
