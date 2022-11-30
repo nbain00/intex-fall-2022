@@ -9,30 +9,36 @@ based on a weekly or monthly view.
 
 <h1><b>Food Journal</b></h1>
 <br><br>
+<form name="form" action="{% url 'journal' userid=pat.id date1='other' %}" method="post">
+    {% csrf_token %}
+    <label for="sDate">Choose another date</label>
+    <input type="date" name="sDate" id="sDate" value="{{showDate}}">
+    <input type="submit" value="Show Date">
+</form>
 
 <div class="container">
-    Breakfast<a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='breakfast' logid=0%}">Add food</a>
+    Breakfast<a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='breakfast' logid=0 date1=showDate%}">Add food</a>
     <br>
     {% for food in breakfast %}
         {{food}}
         <br>
     {% endfor %}
     <br> 
-    Lunch
+    Lunch<a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='lunch' logid=0 date1=showDate%}">Add food</a>
     <br>
     {% for food in lunch %}
         {{food}}
         <br>
     {% endfor %}
     <br> 
-    Dinner
+    Dinner<a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='dinner' logid=0 date1=showDate%}">Add food</a>
     <br>
     {% for food in dinner %}
         {{food}}
         <br>
     {% endfor %}
     <br> 
-    Snacks
+    Snacks<a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='snacks' logid=0 date1=showDate%}">Add food</a>
     <br>
     {% for food in snacks %}
         {{food}}
