@@ -9,5 +9,5 @@ urlpatterns = [
     path('add-level/<int:userid>', addLevelView, name="add-level"),
     path("deleteLog/<int:userid>/<int:logid>/", deleteLogView, name="deleteLog"),
     path("showProfile/<int:userid>/", profileEditView, name="showProfile"),
-    path('food-in-meal/<int:userid>/<str:mealtype>/<int:logid>/<str:date1>', foodinMealView, name="food-in-meal")
+    path('food-in-meal/<int:userid>/<str:mealtype>/<int:logid>/<str:date1>', foodinMealView, name="food-in-meal"),
 ]
