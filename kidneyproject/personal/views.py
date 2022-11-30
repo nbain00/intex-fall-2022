@@ -151,8 +151,12 @@ def profileEditView(request, userid) :
 
 def foodinMealView(request, userid, mealtype, logid) :
     data = Patient.objects.get(id=userid)
+    food = Food.objects.all()
     context = {
-        "pat" : data
+        "pat" : data,
+        "meal_type" : mealtype,
+        "log_id" : logid,
+        "food" : food
     }
     if request.method == 'POST' :
         return HttpResponse('go cougs')

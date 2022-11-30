@@ -5,62 +5,23 @@
 {% endblock %}
 {% block content%}
 Page for adding new food in meal
-        <form name="form" action="{% url 'add-food' userid=pat.id %}" method="post">
+        <form name="form" action="{% url 'food-in-meal' userid=pat.id mealtype=meal_type logid=log_id %}" method="post">
             {% csrf_token %}
+            <input type="hidden" value=pat.id name="userid">
+            <input type="hidden" value=meal_type name="mealtype">
+            <input type="hidden" value=log_id name="logid">
             <label for="measurement_type">Select measurement type:</label>
-            <select name="measurement_type" id="measurement_type">
-                <option value="grams">Per 100 grams</option>
-                <option value="mL">Per 100 mL</option>
+            <br>
+            <label for="food">Name of Food:</label>
+            <select name="food" id ="food">
+                {% for foods in food %}
+                <option value="{{foods.id}}">{{foods.name}}</option>
+                {% endfor %}
             </select>
             <br>
-            <label for="name">Name of Food:</label>
-            <input id="name" type="text" name="name">
-            <br>
-            <label for="calories_kj">Calories (kJ):</label>
-            <input id="calories_kj" type="number" name="calories_kj">
-            <br>
-            <label for="water_g">Water (g):</label>
-            <input id="water_g" type="number" name="water_g">
-            <br>
-            <label for="protein_g">Protein (g):</label>
-            <input id="protein_g" type="number" name="protein_g">
-            <br>
-            <label for="total_fat_g">Total Fat (g):</label>
-            <input id="total_fat_g" type="number" name="total_fat_g">
-            <br>
-            <label for="total_fiber_g">Total Fiber (g):</label>
-            <input id="total_fiber_g" type="number" name="total_fiber_g">
-            <br>
-            <label for="alcohol_g">Alcohol (g):</label>
-            <input id="alcohol_g" type="number" name="alcohol_g">
-            <br>
-            <label for="total_sugars_g">Total Sugars (g):</label>
-            <input id="total_sugars_g" type="number" name="total_sugars_g">
-            <br>
-            <label for="added_sugars_g">Added Sugars (g):</label>
-            <input id="added_sugars_g" type="number" name="added_sugars_g">
-            <br>
-            <label for="total_carbs_g">Total Carbs (g):</label>
-            <input id="total_carbs_g" type="number" name="total_carbs_g">
-            <br>
-            <label for="ca_g">Calcium (g):</label>
-            <input id="ca_g" type="number" name="ca_g">
-            <br>
-            <label for="phos_g">Phosphorous (g):</label>
-            <input id="phos_g" type="number" name="phos_g">
-            <br>
-            <label for="k_g">Potassium (g):</label>
-            <input id="k_g" type="number" name="k_g">
-            <br>
-            <label for="na_g">Sodium (g):</label>
-            <input id="na_g" type="number" name="na_g">
-            <br>
-            <label for="total_saturated_fat_g">Total Saturated Fat (g):</label>
-            <input id="total_saturated_fat_g" type="number" name="total_saturated_fat_g">
-            <br>
-            <label for="total_unsaturated_fat_g">Total Unsaturated Fat (g):</label>
-            <input id="total_unsaturated_fat_g" type="number" name="total_unsaturated_fat_g">
-            <br>
-            <input type="submit" value="Save">
+            <label for="amount">Amount in grams or ounces:</label>
+            <input id="amount" type="number" name="amount">
+            <br>    
+            <input type="submit" value="Add">
         </form>     
 {% endblock %}
