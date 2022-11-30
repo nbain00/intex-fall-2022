@@ -17,33 +17,35 @@ def indexPageView(request) :
     }
     return render(request, 'personal/index.html', context)
 
-def foodJournalView(request, userid) :
+def foodJournalView(request, userid, date1) :
     data = Patient.objects.get(id=userid)
-    '''data2 = MealLog.objects.filter(patient=userid)
-    data3 = FoodinMeal.objects.select_related('meal_log')'''
+    if date1 == 'today' :
+        current_date = date.today()
+        date1 = str(date.today())
+    elif date1 == 'other' :
+        date1 = request.POST['sDate']
+        date1 = str(date1)
+
     breakfast = []
     lunch = []
     dinner = []
     snacks = []
-    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'breakfast' AND patient_id=" + str(userid)):
+    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'breakfast' AND patient_id=" + str(userid) + " AND ml.log_date='" + str(date1) + "'"):
         breakfast.append(p)
-    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'lunch' AND patient_id=" + str(userid)):
+    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'lunch' AND patient_id=" + str(userid) + " AND ml.log_date='" + str(date1) + "'"):
         lunch.append(p)
-    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'dinner' AND patient_id=" + str(userid)):
+    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'dinner' AND patient_id=" + str(userid) + " AND ml.log_date='" + str(date1) + "'"):
         dinner.append(p)
-    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'snacks' AND patient_id=" + str(userid)):
+    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'snacks' AND patient_id=" + str(userid) + " AND ml.log_date='" + str(date1) + "'"):
         snacks.append(p)
-
-#     entry = Entry.objects.select_related('blog').get(id=5)
-# or
-# entries = Entry.objects.filter(foo='bar').select_related('blog')
 
     context = {
         "pat" : data,
         "breakfast" : breakfast,
         "lunch" : lunch,
         "dinner" : dinner,
-        "snacks" : snacks
+        "snacks" : snacks,
+        "showDate" : date1
     }
     return render(request, 'personal/journal.html', context)
 
@@ -80,7 +82,7 @@ def addFoodView(request, userid) :
         return render(request, 'personal/food.html', context)
 
 def levelsLogView(request, userid) :
-    data = SerumLevelLog.objects.get(userid)
+    data = SerumLevelLog.objects.filter(patient=userid)
     data2 = Patient.objects.get(id=userid)
     context = {
         "serum" : data,
@@ -149,30 +151,50 @@ def profileEditView(request, userid) :
     else:
         return render(request, 'personal/profileview.html', context)
 
-def foodinMealView(request, userid, mealtype, logid) :
+def foodinMealView(request, userid, mealtype, logid, date1) :
     data = Patient.objects.get(id=userid)
     food = Food.objects.all()
+    current_date = str(date.today())
     context = {
         "pat" : data,
-        "meal_type" : mealtype,
-        "log_id" : logid,
-        "food" : food
+        "mealtypekey" : mealtype,
+        "logidkey" : logid,
+        "food" : food,
+        "showDate" : date1
     }
     if request.method == 'POST' :
-        return HttpResponse('go cougs')
+        food_in = FoodinMeal()
+
+        meallog1 = request.POST['logid']
+        food_in.meal_log = MealLog.objects.get(id=meallog1)      
+        food_in.amount = request.POST['amount']
+        foodid = request.POST['food']
+        food_in.food = Food.objects.get(id=foodid)
+
+        food_in.save()
+
+        return foodJournalView(request, userid, date1)
     else :
         if logid == 0:
             current_log = []
             user_string = str(userid)
-            current_date = str(date.today())
-            for p in MealLog.objects.raw("SELECT * FROM personal_meallog WHERE meal_type='" + mealtype + "' AND patient_id=" + user_string + " AND log_date='" + current_date + "'") :
+            for p in MealLog.objects.raw("SELECT * FROM personal_meallog WHERE meal_type='" + mealtype + "' AND patient_id=" + user_string + " AND log_date='" + date1 + "'") :
                 current_log.append(p)
             if len(current_log) > 0 :
                 meal_log_id = current_log[0].id
 
-                return foodinMealView(request, userid, mealtype, meal_log_id)
+                return foodinMealView(request, userid, mealtype, meal_log_id, date1)
             else :
-                return HttpResponse("Here we'll create another record")
+                meallog2 = MealLog()
+
+                meallog2.log_date = str(date1)
+                meallog2.meal_type = mealtype
+                meallog2.patient = Patient.objects.get(id=userid)
+                meallog2.save()
+
+                meal_log_id = meallog2.id
+
+                return foodinMealView(request, userid, mealtype, meal_log_id, date1)
         else :
             return render(request, 'personal/foodinmeal.html', context)
 

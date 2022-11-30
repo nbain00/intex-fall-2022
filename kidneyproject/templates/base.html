@@ -14,7 +14,7 @@
         <div class='ms-auto'>
 
             <a href="{% url 'index' %}" class= 'btn btn-outline-light me-1'>Home</a>
-            <a href="{% url 'journal' userid=pat.id %}" class= 'btn btn-outline-light me-1'>Journal</a>
+            <a href="{% url 'journal' userid=pat.id date1='today' %}" class= 'btn btn-outline-light me-1'>Journal</a>
             <a href="{% url 'showProfile' userid=pat.id %} " class= 'btn btn-outline-light me-1'>My Profile</a>
             <a href="{% url 'add-food' userid=pat.id %}" class= 'btn btn-outline-light me-1'>Add Food</a>
             <a href="{% url 'log' userid=pat.id %}" class= 'btn btn-outline-light me-1'>Log</a>

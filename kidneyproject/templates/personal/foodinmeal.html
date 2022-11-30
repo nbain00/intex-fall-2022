@@ -4,12 +4,12 @@
 <title>Add Food in Meal</title>
 {% endblock %}
 {% block content%}
-Page for adding new food in meal
-        <form name="form" action="{% url 'food-in-meal' userid=pat.id mealtype=meal_type logid=log_id %}" method="post">
+Add new food to {{mealtypekey}}
+        <form name="form" action="{% url 'food-in-meal' userid=pat.id mealtype=mealtypekey logid=logidkey date1=showDate %}" method="post">
             {% csrf_token %}
-            <input type="hidden" value=pat.id name="userid">
-            <input type="hidden" value=meal_type name="mealtype">
-            <input type="hidden" value=log_id name="logid">
+            <input type="hidden" value="{{pat.id}}" name="userid">
+            <input type="hidden" value="{{mealtypekey}}" name="mealtype">
+            <input type="hidden" value="{{logidkey}}" name="logid">
             <br>
             <label for="food">Name of Food:</label>
             <select name="food" id ="food">
