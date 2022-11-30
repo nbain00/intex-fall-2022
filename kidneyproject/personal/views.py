@@ -11,16 +11,72 @@ from datetime import date
 # Create your views here.
 def indexPageView(request) :
     data = Patient.objects.get(id=1)
-
+    patient_id = str(data.id)
+    current_date = str(date.today())
     context = {
-        "pat" : data
+        "pat" : data,
+        "calories_kj" : 0,
+        "water_g" : 0,
+        "protein_g" : 0,
+        "total_fat_g" : 0,
+        "total_fiber_g" : 0,
+        "alcohol_g" : 0,
+        "total_sugars_g" : 0,
+        "added_sugars_g" : 0,
+        "total_carbs_g" : 0,
+        "ca_mg" : 0,
+        "phos_mg" : 0,
+        "k_mg" : 0,
+        "na_mg" : 0,
+        "total_saturated_fat_g" : 0,
+        "total_unsaturated_fat_g" : 0
     }
+    foods =[]
+    for p in Patient.objects.raw("SELECT pp.id, amount, calories_kj, water_g, protein_g, total_fat_g, total_fiber_g, alcohol_g, total_sugars_g, added_sugars_g, total_carbs_g, ca_mg, phos_mg, k_mg, na_mg, total_saturated_fat_g, total_unsaturated_fat_g FROM personal_patient pp INNER JOIN personal_meallog ml ON pp.id = ml.patient_id INNER JOIN personal_foodinmeal fm ON ml.id = fm.meal_log_id INNER JOIN personal_food f ON fm.food_id = f.id WHERE pp.id =" + patient_id + " AND log_date = '" + current_date + "'") :
+        foods.append(p)
+
+    for food in foods :
+        if data.unit_preference == "us" :
+            gram_amount = food.amount * 28.35
+        else :
+            gram_amount = food.amount
+        per_value = gram_amount / 100
+        final_value = per_value * food.calories_kj
+        context["calories_kj"] += final_value
+        final_value = per_value * float(food.water_g)
+        context["water_g"] += final_value
+        final_value = per_value * float(food.protein_g)
+        context["protein_g"] += final_value
+        final_value = per_value * float(food.total_fat_g)
+        context["total_fat_g"] += final_value
+        final_value = per_value * float(food.total_fiber_g)
+        context["total_fiber_g"] += final_value
+        final_value = per_value * float(food.alcohol_g)
+        context["alcohol_g"] += final_value
+        final_value = per_value * float(food.total_sugars_g)
+        context["total_sugars_g"] += final_value
+        final_value = per_value * float(food.added_sugars_g)
+        context["added_sugars_g"] += final_value
+        final_value = per_value * float(food.total_carbs_g)
+        context["total_carbs_g"] += final_value
+        final_value = per_value * float(food.ca_mg)
+        context["ca_mg"] += final_value
+        final_value = per_value * float(food.phos_mg)
+        context["phos_mg"] += final_value
+        final_value = per_value * float(food.k_mg)
+        context["k_mg"] += final_value
+        final_value = per_value * float(food.na_mg)
+        context["na_mg"] += final_value
+        final_value = per_value * float(food.total_saturated_fat_g)
+        context["total_saturated_fat_g"] += final_value
+        final_value = per_value * float(food.total_unsaturated_fat_g)
+        context["total_unsaturated_fat_g"] += final_value
+
     return render(request, 'personal/index.html', context)
 
 def foodJournalView(request, userid, date1) :
     data = Patient.objects.get(id=userid)
     if date1 == 'today' :
-        current_date = date.today()
         date1 = str(date.today())
     elif date1 == 'other' :
         date1 = request.POST['sDate']
@@ -45,8 +101,65 @@ def foodJournalView(request, userid, date1) :
         "lunch" : lunch,
         "dinner" : dinner,
         "snacks" : snacks,
-        "showDate" : date1
+        "showDate" : date1,
+        "calories_kj" : 0,
+        "water_g" : 0,
+        "protein_g" : 0,
+        "total_fat_g" : 0,
+        "total_fiber_g" : 0,
+        "alcohol_g" : 0,
+        "total_sugars_g" : 0,
+        "added_sugars_g" : 0,
+        "total_carbs_g" : 0,
+        "ca_mg" : 0,
+        "phos_mg" : 0,
+        "k_mg" : 0,
+        "na_mg" : 0,
+        "total_saturated_fat_g" : 0,
+        "total_unsaturated_fat_g" : 0
     }
+    #Calculate food nutrients
+    foods =[]
+    for p in Patient.objects.raw("SELECT pp.id, amount, calories_kj, water_g, protein_g, total_fat_g, total_fiber_g, alcohol_g, total_sugars_g, added_sugars_g, total_carbs_g, ca_mg, phos_mg, k_mg, na_mg, total_saturated_fat_g, total_unsaturated_fat_g FROM personal_patient pp INNER JOIN personal_meallog ml ON pp.id = ml.patient_id INNER JOIN personal_foodinmeal fm ON ml.id = fm.meal_log_id INNER JOIN personal_food f ON fm.food_id = f.id WHERE pp.id =" + str(userid) + " AND log_date = '" + date1 + "'") :
+        foods.append(p)
+
+    for food in foods :
+        if data.unit_preference == "us" :
+            gram_amount = food.amount * 28.35
+        else :
+            gram_amount = food.amount
+        per_value = gram_amount / 100
+        final_value = per_value * food.calories_kj
+        context["calories_kj"] += final_value
+        final_value = per_value * float(food.water_g)
+        context["water_g"] += final_value
+        final_value = per_value * float(food.protein_g)
+        context["protein_g"] += final_value
+        final_value = per_value * float(food.total_fat_g)
+        context["total_fat_g"] += final_value
+        final_value = per_value * float(food.total_fiber_g)
+        context["total_fiber_g"] += final_value
+        final_value = per_value * float(food.alcohol_g)
+        context["alcohol_g"] += final_value
+        final_value = per_value * float(food.total_sugars_g)
+        context["total_sugars_g"] += final_value
+        final_value = per_value * float(food.added_sugars_g)
+        context["added_sugars_g"] += final_value
+        final_value = per_value * float(food.total_carbs_g)
+        context["total_carbs_g"] += final_value
+        final_value = per_value * float(food.ca_mg)
+        context["ca_mg"] += final_value
+        final_value = per_value * float(food.phos_mg)
+        context["phos_mg"] += final_value
+        final_value = per_value * float(food.k_mg)
+        context["k_mg"] += final_value
+        final_value = per_value * float(food.na_mg)
+        context["na_mg"] += final_value
+        final_value = per_value * float(food.total_saturated_fat_g)
+        context["total_saturated_fat_g"] += final_value
+        final_value = per_value * float(food.total_unsaturated_fat_g)
+        context["total_unsaturated_fat_g"] += final_value
+
     return render(request, 'personal/journal.html', context)
 
 def addFoodView(request, userid) :
