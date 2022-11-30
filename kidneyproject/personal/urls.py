@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import indexPageView, foodJournalView, addFoodView, levelsLogView, addLevelView, deleteLogView
-from .views import profileEditView
+from .views import profileEditView, foodinMealView
 urlpatterns = [
     path('', indexPageView, name="index"),
     path('journal/<int:userid>/', foodJournalView, name="journal"),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('add-level/<int:userid>', addLevelView, name="add-level"),
     path("deleteLog/<int:userid>/<int:logid>/", deleteLogView, name="deleteLog"),
     path("showProfile/<int:userid>/", profileEditView, name="showProfile"),
+    path('food-in-meal/<int:userid>/<str:mealtype>/<int:logid>', foodinMealView, name="food-in-meal")
 ]

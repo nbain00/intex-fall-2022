@@ -4,7 +4,8 @@ from .models import SerumLevelLog
 from .models import Patient
 from .models import SerumType
 from .models import KidneyStage, Comorbidity
-from .models import Food
+from .models import Food, MealLog, FoodinMeal
+from datetime import date
 
 
 # Create your views here.
@@ -18,8 +19,31 @@ def indexPageView(request) :
 
 def foodJournalView(request, userid) :
     data = Patient.objects.get(id=userid)
+    '''data2 = MealLog.objects.filter(patient=userid)
+    data3 = FoodinMeal.objects.select_related('meal_log')'''
+    breakfast = []
+    lunch = []
+    dinner = []
+    snacks = []
+    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'breakfast' AND patient_id=" + str(userid)):
+        breakfast.append(p)
+    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'lunch' AND patient_id=" + str(userid)):
+        lunch.append(p)
+    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'dinner' AND patient_id=" + str(userid)):
+        dinner.append(p)
+    for p in FoodinMeal.objects.raw("SELECT * FROM personal_foodinmeal fm INNER JOIN personal_meallog ml ON fm.meal_log_id = ml.id WHERE ml.meal_type = 'snacks' AND patient_id=" + str(userid)):
+        snacks.append(p)
+
+#     entry = Entry.objects.select_related('blog').get(id=5)
+# or
+# entries = Entry.objects.filter(foo='bar').select_related('blog')
+
     context = {
-        "pat" : data
+        "pat" : data,
+        "breakfast" : breakfast,
+        "lunch" : lunch,
+        "dinner" : dinner,
+        "snacks" : snacks
     }
     return render(request, 'personal/journal.html', context)
 
@@ -56,7 +80,7 @@ def addFoodView(request, userid) :
         return render(request, 'personal/food.html', context)
 
 def levelsLogView(request, userid) :
-    data = SerumLevelLog.objects.all()
+    data = SerumLevelLog.objects.get(userid)
     data2 = Patient.objects.get(id=userid)
     context = {
         "serum" : data,
@@ -124,3 +148,27 @@ def profileEditView(request, userid) :
 
     else:
         return render(request, 'personal/profileview.html', context)
+
+def foodinMealView(request, userid, mealtype, logid) :
+    data = Patient.objects.get(id=userid)
+    context = {
+        "pat" : data
+    }
+    if request.method == 'POST' :
+        return HttpResponse('go cougs')
+    else :
+        if logid == 0:
+            current_log = []
+            user_string = str(userid)
+            current_date = str(date.today())
+            for p in MealLog.objects.raw("SELECT * FROM personal_meallog WHERE meal_type='" + mealtype + "' AND patient_id=" + user_string + " AND log_date='" + current_date + "'") :
+                current_log.append(p)
+            if len(current_log) > 0 :
+                meal_log_id = current_log[0].id
+
+                return foodinMealView(request, userid, mealtype, meal_log_id)
+            else :
+                return HttpResponse("Here we'll create another record")
+        else :
+            return render(request, 'personal/foodinmeal.html', context)
+
