@@ -51,6 +51,7 @@ def foodJournalView(request, userid, date1) :
 
 def addFoodView(request, userid) :
     data = Patient.objects.get(id=userid)
+    date1 = str(date.today())
     context = {
         "pat" : data
     }
@@ -77,7 +78,7 @@ def addFoodView(request, userid) :
 
         food.save()
 
-        return render(request, 'personal/journal.html', context)
+        return foodJournalView(request, userid, date1)
     else:
         return render(request, 'personal/food.html', context)
 
