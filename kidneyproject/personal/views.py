@@ -199,12 +199,16 @@ def levelsLogView(request, userid) :
     data = SerumLevelLog.objects.filter(patient=userid)
     data2 = Patient.objects.get(id=userid)
     levels =[]
+    serum_types = []
     for p in SerumLevelLog.objects.raw("SELECT * FROM personal_serumlevellog sl INNER JOIN personal_serumtype st ON sl.serum_type_id = st.id WHERE patient_id = " + str(userid)):
         levels.append(p)
+    for p in SerumLevelLog.objects.raw("SELECT DISTINCT st.id, name FROM personal_serumLevellog sl INNER JOIN personal_serumtype st ON sl.serum_type_id = st.id WHERE patient_id = " + str(userid)):
+        serum_types.append(p)
     context = {
         "serum" : data,
         "pat" : data2,
-        "levels" : levels
+        "levels" : levels,
+        'serum_types': serum_types,
     }
     return render(request, 'personal/serumlevels.html', context)
 
