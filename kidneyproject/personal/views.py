@@ -200,7 +200,7 @@ def addFoodView(request, userid) :
         return render(request, 'personal/food.html', context)
 
 def levelsLogView(request, userid) :
-    data = SerumLevelLog.objects.filter(patient=userid)
+    data = SerumLevelLog.objects.select_related('serum_type').filter(patient=userid)
     data2 = Patient.objects.get(id=userid)
     levels =[]
     serum_types = []

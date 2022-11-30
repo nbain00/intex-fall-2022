@@ -8,47 +8,41 @@ This page will have serum levels info
 <h1><b>Serum Levels LOG</b></h1>
 <a class = "btn btn-primary" href="{% url 'add-level' userid=pat.id%}">New Log entry</a>
 <br><br>
-
+<div>
+<canvas id="line-chart" width="800" height="450"></canvas>
+</div>
 <div class="container">
-    {% for log in serum %}
+    {% for log in levels %}
     <p>
-        {{ log.log_date }}, {{ log.level }}
+        {{ log.log_date }} - {{ log.name }}: {{ log.level }}
         <a class="btn btn-primary" href="{% url 'deleteLog' userid=pat.id logid=log.id %}">Delete</a>
     </p>
     {% endfor %}
 </div>
 <div>
-<canvas id="line-chart" width="800" height="450"></canvas>
+
 <script>
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
         data: {
-            {% comment %} labels: [{% for data in levels %} '{{ data.log_date }}', {% endfor %}],
+            labels: [{% for data in levels %} '{{data.log_date}}', {%endfor%}],
             datasets: [ {% for data in serum_types %}
             {
                 data: [{% for data1 in levels %} {% if data1.name == data.name %} {{data1.level}}, {% endif %} {% endfor %}],
                 label: '{{data.name}}'
         
-            } {% endfor %}]  {% endcomment %}
-            labels: [1,2,3],
-            datasets: [{
-                data: [86,114,106,106,107,111,133,221,783,2478],
-                label: "Af",
-                borderColor: "#3e95cd",
-                fill: false},
-                { 
-                    data: [282,350,411,502,635,809,947,1402,3700,5267],
-                    label: "Asia",
-                    borderColor: "#8e5ea2",
-                    fill: false
-                  }
-                  ]
-            
+            }, {% endfor %}]            
         },
         options: {
             title: {
             display: true,
             text: 'World population per region (in millions)'
+            },
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'month'
+                }
             }
         }
         });
