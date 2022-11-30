@@ -9,13 +9,25 @@ from .models import Food
 
 # Create your views here.
 def indexPageView(request) :
-    data = None
-    return render(request, 'personal/index.html')
+    data = Patient.objects.get(id=1)
 
-def foodJournalView(request) :
-    return render(request, 'personal/journal.html')
+    context = {
+        "pat" : data
+    }
+    return render(request, 'personal/index.html', context)
 
-def addFoodView(request) :
+def foodJournalView(request, userid) :
+    data = Patient.objects.get(id=userid)
+    context = {
+        "pat" : data
+    }
+    return render(request, 'personal/journal.html', context)
+
+def addFoodView(request, userid) :
+    data = Patient.objects.get(id=userid)
+    context = {
+        "pat" : data
+    }
     if request.method == 'POST' :
         food = Food()
 
@@ -39,41 +51,59 @@ def addFoodView(request) :
 
         food.save()
 
-        return HttpResponse('Food added successfully')
+        return render(request, 'personal/journal.html', context)
     else:
-        return render(request, 'personal/food.html')
+        return render(request, 'personal/food.html', context)
 
-def levelsLogView(request) :
+def levelsLogView(request, userid) :
     data = SerumLevelLog.objects.all()
+    data2 = Patient.objects.get(id=userid)
     context = {
-        "serum" : data
+        "serum" : data,
+        "pat" : data2
     }
     return render(request, 'personal/serumlevels.html', context)
 
-def addLevelView(request) :
+def addLevelView(request, userid) :
+    data = Patient.objects.get(id=userid)
+    context = {
+        "pat" : data
+    }
     if request.method == 'POST':
         
         serum = SerumLevelLog()
 
         serum.log_date = request.POST['log_date']
         serum.level = request.POST['level']
+        pat_id = request.POST['pat_id']
+        serum.patient = Patient.objects.get(id=pat_id)
         tipe = request.POST['serum_name']
         serum.serum_type = SerumType.objects.get(id=tipe)
         serum.save()
-        return levelsLogView(request)
+        return levelsLogView(request, pat_id)
     else:
-        data = SerumType.objects.all()
-        context = {
-            "serum" : data
-        }
+        data2 = SerumType.objects.all()
+        context["serum"] = data2
+
         return render(request, 'personal/serumform.html', context)
 
-def deleteLogView(request, type, pat) :
-    data = SerumLevelLog.objects.get(serum_type = type, patient =pat)
+def deleteLogView(request, userid, logid,) :
+    data = SerumLevelLog.objects.get(id=logid)
+    data2 = Patient.objects.get(id=userid)
+    pat_id = data2.id
     data.delete()
-    return levelsLogView(request)
+    return levelsLogView(request, pat_id)
     
 def profileEditView(request, userid) :
+    data = Patient.objects.get(id=userid)
+    data2 = Comorbidity.objects.all()
+    data3 = KidneyStage.objects.all()
+    context = {
+        "pat" : data,
+        "profile" : data,
+        "comor" : data2,
+        "stage" : data3
+    }
     if request.method == 'POST':
         cust_id = request.POST['cust_id']
         profile = Patient.objects.get(id=cust_id)
@@ -89,15 +119,8 @@ def profileEditView(request, userid) :
         profile.comorbidity.add(Comorbidity.objects.get(id=cmrb))
         profile.unit_preference = request.POST['unit_preference']
         profile.save()
-        return render(request, 'personal/index.html')
+
+        return render(request, 'personal/index.html', context)
 
     else:
-        data = Patient.objects.get(id=userid)
-        data2 = Comorbidity.objects.all()
-        data3 = KidneyStage.objects.all()
-        context = {
-            "profile" : data,
-            "comor" : data2,
-            "stage" : data3
-        }
         return render(request, 'personal/profileview.html', context)

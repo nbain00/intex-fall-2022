@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}
+<title>Level Log</title>
+{% endblock %}
 {% block content%}
 This page will have serum levels info
 <h1><b>Serum Levels LOG</b></h1>
-<a class = "btn btn-primary" href="{% url 'add-level' %}">New Log entry</a>
+<a class = "btn btn-primary" href="{% url 'add-level' userid=pat.id%}">New Log entry</a>
 <br><br>
 
 <div class="container">
     {% for log in serum %}
     <p>
         {{ log.log_date }}, {{ log.level }}
-        <a class="btn btn-primary" href="{% url 'deleteLog' type=log.serum_type pat=log.patient %}">Delete</a>
+        <a class="btn btn-primary" href="{% url 'deleteLog' userid=pat.id logid=log.id %}">Delete</a>
     </p>
     {% endfor %}
 </div>

@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <title>Document</title>
+    {% block title %}
+    {% endblock %}
 </head>
 <body>
     <nav class= 'navbar navbar-dark bg-dark align-right'>
         <div class='ms-auto'>
 
             <a href="{% url 'index' %}" class= 'btn btn-outline-light me-1'>Home</a>
-            <a href="{% url 'journal' %}" class= 'btn btn-outline-light me-1'>Journal</a>
-            <a href="{% url 'showProfile' userid=3 %} " class= 'btn btn-outline-light me-1'>My Profile</a>
-            <a href="{% url 'add-food' %}" class= 'btn btn-outline-light me-1'>Add Food</a>
-            <a href="{% url 'log' %}" class= 'btn btn-outline-light me-1'>Log</a>
-            <a href="{% url 'add-level' %}" class= 'btn btn-outline-light me-1'>Add Level</a>
+            <a href="{% url 'journal' userid=pat.id %}" class= 'btn btn-outline-light me-1'>Journal</a>
+            <a href="{% url 'showProfile' userid=pat.id %} " class= 'btn btn-outline-light me-1'>My Profile</a>
+            <a href="{% url 'add-food' userid=pat.id %}" class= 'btn btn-outline-light me-1'>Add Food</a>
+            <a href="{% url 'log' userid=pat.id %}" class= 'btn btn-outline-light me-1'>Log</a>
+            <a href="{% url 'add-level' userid=pat.id %}" class= 'btn btn-outline-light me-1'>Add Level</a>
 
         </div>
     </nav>
