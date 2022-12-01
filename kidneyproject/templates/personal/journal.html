@@ -261,44 +261,106 @@
     </script>
 </div>
 </div>
+<style>
+    .meal-header {
+        display: flex;
+        justify-content: center;
+    }
+    table, th, td {
+        border: 3px solid darkgray;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+    .meal-table {
+        display: flex;
+        justify-content: center;
+        text-align: left;
+    }
+</style>
 <div class="container">
-    <div style="display: flex; justify-content: center">
+    <div class="meal-header">
         <h3 style="margin-right:10px">Breakfast</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='breakfast' logid=0 date1=showDate%}">Add food</a>
     </div>
     <br>
-    <div style="text-align: left; display: flex; justify-content: center">
-    {% for food in breakfast %}
-        {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
-        <br>
-    {% endfor %}
+    <div class="meal-table">
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Amount {% if pat.unit_preference == 'us' %}(oz){% else %}(g){% endif %}</th>
+            </thead>
+            <tbody>
+                {% for food in breakfast %}
+                <tr>                    
+                    <td>{{food}}</td>
+                    <td>{{food.amount}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     <br> 
-    <div style="display: flex; justify-content: center">
+    <div class="meal-header">
         <h3 style="margin-right:10px">Lunch</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='lunch' logid=0 date1=showDate%}">Add food</a>
     </div>
     <br>
-    {% for food in lunch %}
-        {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
-        <br>
-    {% endfor %}
-    <br> 
-    <div style="display: flex; justify-content: center">
+    <div class="meal-table">
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Amount {% if pat.unit_preference == 'us' %}(oz){% else %}(g){% endif %}</th>
+            </thead>
+            <tbody>
+                {% for food in lunch %}
+                <tr>                    
+                    <td>{{food}}</td>
+                    <td>{{food.amount}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="meal-header">
         <h3 style="margin-right:10px">Dinner</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='dinner' logid=0 date1=showDate%}">Add food</a>
     </div>
     <br>
-    {% for food in dinner %}
-        {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
-        <br>
-    {% endfor %}
-    <br> 
-    <div style="display: flex; justify-content: center">
+    <div class="meal-table">
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Amount {% if pat.unit_preference == 'us' %}(oz){% else %}(g){% endif %}</th>
+            </thead>
+            <tbody>
+                {% for food in dinner %}
+                <tr>                    
+                    <td>{{food}}</td>
+                    <td>{{food.amount}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="meal-header">
         <h3 style="margin-right:10px">Snacks</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='snacks' logid=0 date1=showDate%}">Add food</a>
     </div>
     <br>
-    {% for food in snacks %}
-        {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
-        <br>
-    {% endfor %} 
+    <div class="meal-table">
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Amount {% if pat.unit_preference == 'us' %}(oz){% else %}(g){% endif %}</th>
+            </thead>
+            <tbody>
+                {% for food in snacks %}
+                <tr>                    
+                    <td>{{food}}</td>
+                    <td>{{food.amount}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
   
 {% endblock %}

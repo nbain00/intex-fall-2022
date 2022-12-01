@@ -21,7 +21,7 @@
         <label for='serum_name'>Select Serum Type:</label> 
         <select name='serum_name' id ="serum_name" required>
             {% for names in serum %}
-            <option value="{{names.id}}">{{names.name}}, ( {{names.units}} )</option>
+            <option value="{{names.id}}">{{names.name}}, ({{names.units}})</option>
             {% endfor %}
         </select>
         <button type="submit">Update</button>
