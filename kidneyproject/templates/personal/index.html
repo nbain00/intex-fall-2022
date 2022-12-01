@@ -17,47 +17,144 @@
                     <!-- form will go here later-->
                 </div>
 
-                <div class = "col-md-8">
-                    <canvas id="myChart" width="400" height="400"></canvas>
+                <div class = "col-md-4" >
+                    <canvas id="myChart" ></canvas>
                         <script>
                         const ctx = document.getElementById('myChart').getContext('2d');
                         const myChart = new Chart(ctx, {
-                            type: 'pie',
+                            type: 'doughnut',
                             data: {
-                                labels: ['water','protein','total carbs', 'salt'],
+                                labels: ['water', 'water to go'],
                                 datasets: [{
-                                    label: '# of Votes',
-                                    data: [{{water_g}}, {{protein_g}},{{total_carbs_g}}, {{na_mg}}],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
+                                    label: 'amount',
+                                    data: [{{RDA_water}}, {{RDA_waterNOT}}],
+                                    backgroundColor: [                                       
                                         'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)',
-                                        'rgba(255, 159, 64, 0.2)'
+                                        'rgba(25, 80, 115, 0.2)',
                                     ],
                                     borderColor: [
-                                        'rgba(255, 99, 132, 1)',
                                         'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
+                                        'rgba(54, 162, 235, 1)',
                                     ],
                                     borderWidth: 1
                                 }]
                             },
                             options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
+                                plugins: {
+                                    subtitle: {
+                                        display: true,
+                                        text: {% if RDA_water > 100 %}"You've exceed your water limit for the day!"{% else %}""{% endif %},
+                                        position: 'bottom'
+                                    } 
+                                }                     
+                            }
+                        });
+                        </script>
+                </div>
+                <div class = "col-md-4" >
+                        <canvas id="myChart4" ></canvas>
+                        <script>
+                        const ctx2 = document.getElementById('myChart4').getContext('2d');
+                        const myChart4 = new Chart(ctx2, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['protein', 'protein to go'],
+                                datasets: [{
+                                    label: 'amount',
+                                    data: [{{RDA_protein}}, {{RDA_proteinNOT}}],
+                                    backgroundColor: [
+                                        'rgba(211, 167, 55, 0.8)',
+                                        'rgba(105, 83, 27, 0.8)',
+
+                                    ],
+                                    borderColor: [
+                                        'rgba(211, 167, 55, 1)',
+                                        'rgba(211, 167, 55, 1)',
+
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                plugins: {
+                                    subtitle: {
+                                        display: true,
+                                        text: {% if RDA_protein > 100 %}"You've exceed your protein limit for the day!"{% else %}""{% endif %},
+                                        position: 'bottom'
+                                    } 
+                                }                     
+                            }
+                        });
+                        </script>
+                </div>
+                <div class = "col-md-4" >
+                    <canvas id="myChart2" ></canvas>
+                        <script>
+                        const ctx5 = document.getElementById('myChart2').getContext('2d');
+                        const myChart2 = new Chart(ctx5, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['sodium', 'sodium to go'],
+                                datasets: [{
+                                    label: 'amount',
+                                    data: [{{RDA_na}}, {{RDA_naNOT}}],
+                                    backgroundColor: [
+                                        'rgba(211, 69, 55, 0.8)',
+                                        'rgba(105, 35, 27, 0.6)',
+                                    ],
+                                    borderColor: [
+                                        'rgba(211, 69, 55, 1)',
+                                        'rgba(211, 69, 55, 1)',
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                plugins: {
+                                    subtitle: {
+                                        display: true,
+                                        text: {% if RDA_na > 100 %}"You've exceed your sodium limit for the day!"{% else %}""{% endif %},
+                                        position: 'bottom'
+                                    } 
+                                }                     
+                            }
+                        });
+                        </script>
+                </div>
+                <div class = "col-md-4" >
+                        <canvas id="myChart6" ></canvas>
+                        <script>
+                        const ctx3 = document.getElementById('myChart6').getContext('2d');
+                        const myChart6 = new Chart(ctx3, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['carbohydrates', 'carbs to go'],
+                                datasets: [{
+                                    label: 'amount',
+                                    data: [{{RDA_carbs}}, {{RDA_carbsNOT}}],
+                                    backgroundColor: [
+                                        'rgba(151, 55, 211, 0.8)',
+                                        'rgba(75, 26, 100, 0.8)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(151, 55, 211, 1)',
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                plugins: {
+                                    subtitle: {
+                                        display: true,
+                                        text: {% if RDA_carbs > 100 %}  "You've exceed your carb limit for the day!"{% endif %},
+                                        position: 'bottom'
                                     }
                                 }
                             }
                         });
                         </script>
-
                 </div>
+                
             </div>
         </header>
 

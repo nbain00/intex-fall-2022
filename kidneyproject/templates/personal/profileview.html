@@ -45,7 +45,7 @@
             </select>
 
             <label for='comorbidity'>Select Cormobity:</label> 
-            <select name='comorbidity' id ="comorbidity">
+            <select name='comorbidity' id ="comorbidity" multiple>
                 {% for names in comor %}
                 <option value="{{names.id}}">{{names.name}}</option>
                 {% endfor %}
