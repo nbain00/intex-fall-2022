@@ -25,7 +25,7 @@
             <a href="{% url 'index' %}" class= 'btn btn-outline-light me-1'>Home</a>
             <a href="{% url 'journal' userid=pat.id date1='today' %}" class= 'btn btn-outline-light me-1'>Journal</a>
             <a href="{% url 'log' userid=pat.id %}" class= 'btn btn-outline-light me-1'>Serum Logs</a>
-            <a href="{% url 'showProfile' userid=pat.id %} " class= 'btn btn-outline-light me-1' style="margin-left:1100px">{{pat.first_name|capfirst}}'s Profile</a>
+            <a href="{% url 'showProfile' userid=pat.id %} " class= 'btn btn-outline-light me-1 align-right' style="position:absolute; right:10px">{{pat.first_name|capfirst}}'s Profile</a>
 
         </div>
     </nav>
