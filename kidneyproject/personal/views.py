@@ -196,7 +196,7 @@ def foodJournalView(request, userid, date1) :
     RDA_phos = 800
     context["RDA_phos"] = RDA_phos
     #Calculate food nutrients
-    foods =[]
+    foods = []
     for p in Patient.objects.raw("SELECT pp.id, amount, calories_kj, water_g, protein_g, total_fat_g, total_fiber_g, alcohol_g, total_sugars_g, added_sugars_g, total_carbs_g, ca_mg, phos_mg, k_mg, na_mg, total_saturated_fat_g, total_unsaturated_fat_g FROM personal_patient pp INNER JOIN personal_meallog ml ON pp.id = ml.patient_id INNER JOIN personal_foodinmeal fm ON ml.id = fm.meal_log_id INNER JOIN personal_food f ON fm.food_id = f.id WHERE pp.id =" + str(userid) + " AND log_date = '" + date1 + "'") :
         foods.append(p)
 
@@ -329,17 +329,29 @@ def addFoodView(request, userid) :
 def levelsLogView(request, userid) :
     data = SerumLevelLog.objects.select_related('serum_type').filter(patient=userid)
     data2 = Patient.objects.get(id=userid)
-    levels =[]
+    levels = []
     serum_types = []
     for p in SerumLevelLog.objects.raw("SELECT * FROM personal_serumlevellog sl INNER JOIN personal_serumtype st ON sl.serum_type_id = st.id WHERE patient_id = " + str(userid)):
         levels.append(p)
     for p in SerumLevelLog.objects.raw("SELECT DISTINCT st.id, name FROM personal_serumLevellog sl INNER JOIN personal_serumtype st ON sl.serum_type_id = st.id WHERE patient_id = " + str(userid)):
         serum_types.append(p)
+    dates = []
+    for p in SerumLevelLog.objects.raw("SELECT DISTINCT pp.id, patient_id, log_date FROM personal_serumlevellog sl INNER JOIN personal_serumtype st ON sl.serum_type_id = st.id INNER JOIN personal_patient pp ON sl.patient_id = pp.id WHERE patient_id = " + str(userid) + " ORDER BY log_date") :
+        dates.append(p)
+
+    dates_final = []
+    for item in levels :
+        if item not in dates_final :
+            dates_final.append(item)
+
+    
     context = {
         "serum" : data,
         "pat" : data2,
         "levels" : levels,
-        'serum_types': serum_types,
+        "serum_types": serum_types,
+        "dates_final" : dates_final,
+        "dates" : dates
     }
     return render(request, 'personal/serumlevels.html', context)
 
@@ -389,6 +401,7 @@ def profileEditView(request, userid) :
 
         profile.first_name = request.POST['first_name']
         profile.last_name = request.POST['last_name']
+        profile.gender = request.POST['gender']
         profile.age = request.POST['age']
         profile.weight = request.POST['weight']
         profile.height = request.POST['height']
