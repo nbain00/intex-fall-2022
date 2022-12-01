@@ -194,7 +194,7 @@ def foodJournalView(request, userid, date1) :
     RDA_k = 2500
     context["RDA_k"] = RDA_k
     RDA_phos = 800
-    context["RDA_phos"] : RDA_phos
+    context["RDA_phos"] = RDA_phos
     #Calculate food nutrients
     foods =[]
     for p in Patient.objects.raw("SELECT pp.id, amount, calories_kj, water_g, protein_g, total_fat_g, total_fiber_g, alcohol_g, total_sugars_g, added_sugars_g, total_carbs_g, ca_mg, phos_mg, k_mg, na_mg, total_saturated_fat_g, total_unsaturated_fat_g FROM personal_patient pp INNER JOIN personal_meallog ml ON pp.id = ml.patient_id INNER JOIN personal_foodinmeal fm ON ml.id = fm.meal_log_id INNER JOIN personal_food f ON fm.food_id = f.id WHERE pp.id =" + str(userid) + " AND log_date = '" + date1 + "'") :
