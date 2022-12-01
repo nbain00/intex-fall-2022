@@ -27,7 +27,7 @@
         }
     </style>
     <div class="graphs2">
-    <div class = "col-md-4 items" >
+    <div class = "items" >
         <canvas id="myChart" ></canvas>
             <script>
             const ctx = document.getElementById('myChart').getContext('2d');
@@ -65,7 +65,7 @@
             });
             </script>
     </div>
-    <div class = "col-md-4 items" >
+    <div class = "items" >
         <canvas id="myChart4" ></canvas>
         <script>
         const ctx4 = document.getElementById('myChart4').getContext('2d');
@@ -105,7 +105,7 @@
         });
         </script>
     </div>
-    <div class = "col-md-4 items" >
+    <div class = "items" >
         <canvas id="myChart2" ></canvas>
             <script>
             const ctx2 = document.getElementById('myChart2').getContext('2d');
@@ -143,7 +143,7 @@
             });
             </script>
     </div>
-    <div class = "col-md-4 items" >
+    <div class = "items" >
         <canvas id="myChart6" ></canvas>
         <script>
         const ctx6 = document.getElementById('myChart6').getContext('2d');
@@ -168,7 +168,7 @@
                 plugins: {
                     subtitle: {
                         display: true,
-                        text: {% if chart_carbs > 100 %}  "You've exceed your carb limit for the day!"{% endif %},
+                        text: {% if chart_carbs > 100 %}  "You've exceed your carb limit for the day!"{% else %}""{% endif %},
                         position: 'bottom'
                     },
                     title: {
