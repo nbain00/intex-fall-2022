@@ -30,11 +30,11 @@
             <input type="text" name="age" id="age" value="{{profile.age}}" required>
             <br><br>
     
-            <label for='weight'>Weight:</label>
+            <label for='weight'>Weight (lbs):</label>
             <input type="text" name="weight" id="weight" value = "{{profile.weight}}" required>
             <br><br>
     
-            <label for='height'>Height:</label>
+            <label for='height'>Height (in):</label>
             <input type="text" name = 'height' id = 'height' value = "{{profile.height}}" required>
             <br><br>
     
@@ -47,12 +47,12 @@
 
             <label for='kidney_stage'>Kidney Stage:</label> 
             <select name='kidney_stage' id ="kidney_stage">
-
                 {% for names in stage %}
                 <option value="{{names.id}}">{{names.name}}</option>
                 {% endfor %}
             </select>
             <br><br>
+            
             <label for='comorbidity' style="display:block;
             padding:2px;">Comorbidity &#40;if any&#41;:</label> 
             <select name='comorbidity' id ="comorbidity" multiple>
