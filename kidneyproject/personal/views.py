@@ -56,8 +56,10 @@ def indexPageView(request) :
         #getting the values for the water
         context["water_g"] += final_value
         watervalue = (final_value / RDA_water)*100
-        context["RDA_water"] = watervalue
-        context["RDA_waterNOT"] = 100 - watervalue
+        if macrovalue > 100 :
+            context["RDA_waterNOT"] = 0
+        else : 
+            context["RDA_waterNOT"] = 100 - macrovalue
 
         #getting values for the protein
         final_value = per_value * float(food.protein_g)
@@ -102,8 +104,10 @@ def indexPageView(request) :
         #the sodium
         context["na_mg"] += final_value
         macrovalue = (final_value / RDA_na)*100
-        context["RDA_na"] = macrovalue
-        context["RDA_naNOT"] = 100 - macrovalue
+        if macrovalue > 100 :
+            context["RDA_naNOT"] = 0
+        else : 
+            context["RDA_naNOT"] = 100 - macrovalue
 
 
         final_value = per_value * float(food.total_saturated_fat_g)
