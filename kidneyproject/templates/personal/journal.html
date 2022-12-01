@@ -265,28 +265,28 @@
     <h3>Breakfast</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='breakfast' logid=0 date1=showDate%}">Add food</a>
     <br>
     {% for food in breakfast %}
-        {{food}}
+        {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
         <br>
     {% endfor %}
     <br> 
     <h3>Lunch</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='lunch' logid=0 date1=showDate%}">Add food</a>
     <br>
     {% for food in lunch %}
-        {{food}}
+        {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
         <br>
     {% endfor %}
     <br> 
     <h3>Dinner</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='dinner' logid=0 date1=showDate%}">Add food</a>
     <br>
     {% for food in dinner %}
-        {{food}}
+        {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
         <br>
     {% endfor %}
     <br> 
     <h3>Snacks</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='snacks' logid=0 date1=showDate%}">Add food</a>
     <br>
     {% for food in snacks %}
-        {{food}}
+        {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
         <br>
     {% endfor %} 
 </div>

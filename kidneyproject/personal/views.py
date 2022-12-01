@@ -195,7 +195,10 @@ def foodJournalView(request, userid, date1) :
         "chart_k" : 0,
         "chart_phos" : 0
     }
-    RDA_water = 3700
+    if data.gender == 'M' :
+        RDA_water = 3700
+    else :
+        RDA_water = 2700
     context["RDA_water"] = RDA_water
     RDA_protein = (float(data.weight) / 2.2046) * 0.6
     context["RDA_protein"] = RDA_protein
@@ -356,14 +359,19 @@ def levelsLogView(request, userid) :
         if item not in dates_final :
             dates_final.append(item)
 
-    
+    if data2.gender == 'M' :
+        RDA_creatinine = '>1.3'
+    else :
+        RDA_creatinine = '>1.1'
+
     context = {
         "serum" : data,
         "pat" : data2,
         "levels" : levels,
         "serum_types": serum_types,
         "dates_final" : dates_final,
-        "dates" : dates
+        "dates" : dates,
+        "RDA_creatinine" : RDA_creatinine
     }
     return render(request, 'personal/serumlevels.html', context)
 
