@@ -27,3 +27,6 @@ typing_extensions==4.4.0
 tzdata==2022.5
 Werkzeug==2.2.2
 yarl==1.8.1
+gunicorn==20.1.0
+dj-database-url==1.0.0
+whitenoise==6.2.0
