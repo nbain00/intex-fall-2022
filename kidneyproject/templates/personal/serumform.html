@@ -11,15 +11,15 @@
         {% csrf_token %}
         <input type="hidden" value="{{pat.id}}" name="pat_id">
         <label for='log_date'>Date of the log:</label>
-        <input type="date" name="log_date" id="log_date" autofocus>
+        <input type="date" name="log_date" id="log_date" autofocus required>
         <br><br>
 
         <label for= 'level'>Serum Levels:</label>
-        <input type="text" name="level" id="level">
+        <input type="text" name="level" id="level" required>
         <br><br>
 
         <label for='serum_name'>Select Serum Type:</label> 
-        <select name='serum_name' id ="serum_name">
+        <select name='serum_name' id ="serum_name" required>
             {% for names in serum %}
             <option value="{{names.id}}">{{names.name}}, ( {{names.units}} )</option>
             {% endfor %}

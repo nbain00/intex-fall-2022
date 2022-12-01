@@ -27,7 +27,7 @@ class Patient(models.Model) :
         return (self.first_name + ' ' + self.last_name)
 
 class MealLog(models.Model) :
-    log_date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    log_date = models.DateField(auto_now=False, auto_now_add=False)
     meal_type = models.CharField(max_length=50)
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
 
@@ -73,7 +73,7 @@ class SerumType(models.Model) :
         return (self.name)
 
 class SerumLevelLog(models.Model) :
-    log_date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    log_date = models.DateField(auto_now=False, auto_now_add=False)
     level = models.DecimalField(max_digits=8, decimal_places=2)
     serum_type = models.ForeignKey(SerumType, on_delete=models.DO_NOTHING)
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)

@@ -24,7 +24,7 @@
               </div>
               <br>
             <label for="food">Name of Food:</label>
-            <select name="food" id ="food">
+            <select name="food" id ="food" required>
                 {% for foods in food %}
                 <option value="{{foods.id}}">{{foods.name}}</option>
                 {% endfor %}
@@ -37,7 +37,7 @@
                 grams:
                 {% endif %}
             </label>
-            <input id="amount" type="number" name="amount">
+            <input id="amount" type="number" name="amount" required>
             <br>    
             <input type="submit" value="Add">
         </form>     
