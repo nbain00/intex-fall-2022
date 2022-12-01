@@ -64,7 +64,10 @@ def indexPageView(request) :
         context["protein_g"] += final_value
         macrovalue = (final_value / RDA_protein)*100
         context["RDA_protein"] = macrovalue
-        context["RDA_proteinNOT"] = 100 - macrovalue
+        if macrovalue > 100 :
+            context["RDA_proteinNOT"] = 0
+        else : 
+            context["RDA_proteinNOT"] = 100 - macrovalue
 
         final_value = per_value * float(food.total_fat_g)
         context["total_fat_g"] += final_value
@@ -83,7 +86,10 @@ def indexPageView(request) :
         final_value = per_value * float(food.ca_mg)
         macrovalue = (final_value / RDA_carbs)*100
         context["RDA_carbs"] = macrovalue
-        context["RDA_carbsNOT"] = 100 - macrovalue        
+        if macrovalue > 100 :
+            context["RDA_carbsNOT"] = 0
+        else :
+            context["RDA_carbsNOT"] = 100 - macrovalue        
 
 
         context["ca_mg"] += final_value
