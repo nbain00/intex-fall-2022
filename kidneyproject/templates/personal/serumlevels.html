@@ -6,7 +6,21 @@
 {% block content%}
 <h2><b>Serum Levels</b></h2>
 <br>
-<div style='border-style: solid; border-color: black;'>
+<style>
+    .both {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+</style>
+<a class = "btn btn-primary" href="{% url 'add-level' userid=pat.id%}">Create New Log Entry</a>
+<div class="both">
+<br>
+<br><br>
+<div style="flex-grow: 2">
+<canvas id="line-chart" width="800" height="450"></canvas>
+</div>
+<div style='border-style: solid; border-color: black; flex-grow: 1'>
     <br>
     <h4>Target Serum Levels for {{pat.first_name|capfirst}} :</h4>
     <p>K: 3.6-5.2 &#40;mg/dL&#41;</p>
@@ -16,11 +30,6 @@
     <p> Albumin: 3.5 &#40;g/dL&#41;</p>
     <p>Blood Sugar: 70-100 &#40;mg/dL&#41;</p>
 </div>
-<br>
-<a class = "btn btn-primary" href="{% url 'add-level' userid=pat.id%}">Create New Log Entry</a>
-<br><br>
-<div>
-<canvas id="line-chart" width="800" height="450"></canvas>
 </div>
 <div class="container">
     {% for log in levels %}
