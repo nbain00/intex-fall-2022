@@ -4,7 +4,7 @@
 <title>Add Food</title>
 {% endblock %}
 {% block content%}
-Page for adding new food
+<h2><b>Add a New Food to the Repository</b></h2>
         <form name="form" action="{% url 'add-food' userid=pat.id %}" method="post">
             {% csrf_token %}
             <label for="measurement_type">Select measurement type:</label>
@@ -63,4 +63,5 @@ Page for adding new food
             <br>
             <input type="submit" value="Save">
         </form>     
+        <a href="{% url 'journal' userid=pat.id date1='today' %}"><h3>Go back to My Journal</h3></a>
 {% endblock %}

@@ -4,9 +4,9 @@
 <title>Level Log</title>
 {% endblock %}
 {% block content%}
-This page will have serum levels info
-<h1><b>Serum Levels LOG</b></h1>
-<a class = "btn btn-primary" href="{% url 'add-level' userid=pat.id%}">New Log entry</a>
+<h2><b>Serum Levels</b></h2>
+<br>
+<a class = "btn btn-primary" href="{% url 'add-level' userid=pat.id%}">Create New Log Entry</a>
 <br><br>
 <div>
 <canvas id="line-chart" width="800" height="450"></canvas>

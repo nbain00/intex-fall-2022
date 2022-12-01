@@ -4,7 +4,8 @@
 <title>Add Food in Meal</title>
 {% endblock %}
 {% block content%}
-Add new food to {{mealtypekey}}
+<h2><b>Add a New Food to {{ mealtypekey|capfirst }}</b></h2>
+<a href="{% url 'add-food' userid=pat.id %}"><h3>Add New Food to Repository</h3></a>    
         <form name="form" action="{% url 'food-in-meal' userid=pat.id mealtype=mealtypekey logid=logidkey date1=showDate %}" method="post">
             {% csrf_token %}
             <input type="hidden" value="{{pat.id}}" name="userid">
@@ -29,4 +30,10 @@ Add new food to {{mealtypekey}}
             <br>    
             <input type="submit" value="Add">
         </form>     
+        <div class='text-center'>
+            <a href="{% url 'journal' userid=pat.id date1='today' %}"><h3>Go Back to Journal</h3></a>
+            <br>
+            <br>
+
+        </div>
 {% endblock %}

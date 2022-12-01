@@ -4,7 +4,8 @@
 <title>Profile</title>
 {% endblock %}
 {% block content%}
-On this page the user can view their profile as a form that they can make edits to
+<h2><b>Welcome, {{profile.first_name|capfirst}}</b></h2>
+<br>
         <form name="form" method="post" action="{% url 'showProfile' userid=pat.id %} " userid = {{profile.id}}>
             {% csrf_token %}
             <input type = "hidden" id="cust_id" name="cust_id" value="{{profile.id}}">

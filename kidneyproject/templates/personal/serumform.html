@@ -1,13 +1,11 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block title %}
-<title>Add Levels</title>
+<title>Serum Levels</title>
 {% endblock %}
 {% block content %}
 <div class = "container">
-    <div class = "text-left">
-        <h2 class = "section=heading text-uppercase">Add Serum Reading</h2>
-    </div>
+        <h2><b>Log Your Serum Levels</b></h2>
     <br>
     <form name="form" method="post" action="{% url 'add-level' userid=pat.id%}">
         {% csrf_token %}
@@ -28,5 +26,6 @@
         </select>
         <button type="submit">Update</button>
     </form>
+    <a href="{% url 'log' userid=pat.id %}"><h3>Go Back to Serum Logs</h3></a>
     <br><br><br><br><br>
 {% endblock %}
