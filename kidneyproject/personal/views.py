@@ -67,8 +67,11 @@ def indexPageView(request) :
         context["chart_water"] = macrovalue
         if macrovalue > 100 :
             context["chart_waterNOT"] = 0
-        else : 
+        else :
             context["chart_waterNOT"] = 100 - macrovalue
+            if final_value == 0:
+                context["chart_water"] = 0
+                context["chart_waterNOT"] = 100
 
         #getting values for the protein
         final_value = per_value * float(food.protein_g)
@@ -77,8 +80,11 @@ def indexPageView(request) :
         context["chart_protein"] = macrovalue
         if macrovalue > 100 :
             context["chart_proteinNOT"] = 0
-        else : 
-            context["chart_proteinNOT"] = 100 - macrovalue
+        else :
+            context["chart_proteinNOT"] = 100 - macrovalue 
+            if final_value == 0:
+                context["chart_protein"] = 0
+                context["chart_proteinNOT"] = 100
 
         final_value = per_value * float(food.total_fat_g)
         context["total_fat_g"] += final_value
@@ -101,6 +107,10 @@ def indexPageView(request) :
             context["chart_carbsNOT"] = 0
         else :
             context["chart_carbsNOT"] = 100 - macrovalue        
+            if final_value == 0:
+                context["chart_carbs"] = 0
+                context["chart_carbsNOT"] = 100
+
 
 
         context["ca_mg"] += final_value
@@ -118,7 +128,9 @@ def indexPageView(request) :
             context["chart_naNOT"] = 0
         else : 
             context["chart_naNOT"] = 100 - macrovalue
-
+            if final_value == 0:
+                context["chart_na"] = 0
+                context["chart_naNOT"] = 100
 
         final_value = per_value * float(food.total_saturated_fat_g)
         context["total_saturated_fat_g"] += final_value
@@ -313,10 +325,10 @@ def addFoodView(request, userid) :
         food.total_sugars_g = request.POST['total_sugars_g']
         food.added_sugars_g = request.POST['added_sugars_g']
         food.total_carbs_g = request.POST['total_carbs_g']
-        food.ca_g = request.POST['ca_g']
-        food.phos_g = request.POST['phos_g']
-        food.k_g = request.POST['k_g']
-        food.na_g = request.POST['na_g']
+        food.ca_mg = request.POST['ca_mg']
+        food.phos_mg = request.POST['phos_mg']
+        food.k_mg = request.POST['k_mg']
+        food.na_mg = request.POST['na_mg']
         food.total_saturated_fat_g = request.POST['total_saturated_fat_g']
         food.total_unsaturated_fat_g = request.POST['total_unsaturated_fat_g']
 

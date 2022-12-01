@@ -52,15 +52,16 @@
                 <option value="{{names.id}}">{{names.name}}</option>
                 {% endfor %}
             </select>
-
-            <label for='comorbidity'>Comorbidity &#40;if any&#41;:</label> 
+            <br><br>
+            <label for='comorbidity' style="display:block;
+            padding:2px;">Comorbidity &#40;if any&#41;:</label> 
             <select name='comorbidity' id ="comorbidity" multiple>
 
                 {% for names in comor %}
                 <option value="{{names.id}}" {% if profile.comorbidity == '{{names.id}}'%}selected{% endif %}>{{names.name}}</option>
                 {% endfor %}
             </select>
-    
+            <br><br><br>
             <input type="submit" value="Save and Exit">
         </form>     
 {% endblock %}
