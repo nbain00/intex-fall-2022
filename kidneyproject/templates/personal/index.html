@@ -10,7 +10,7 @@
                 <div class="masthead-subheading">Welcome to Kidney center!</div>
                 <div class="masthead-heading text-uppercase">Lorem ipsum dolor sit amet</div>
                 <p>This is our main visualization 1</p>
-                {{calories_kj}}
+                {{total_carbs_g}}
             </div>
             <div class = "row mt-3 pt-3">
                 <div class = "col-md-4">
@@ -40,11 +40,13 @@
                                 }]
                             },
                             options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
+                                plugins: {
+                                    subtitle: {
+                                        display: true,
+                                        text: {% if RDA_water > 100 %}"You've exceed your water limit for the day!"{% else %}""{% endif %},
+                                        position: 'bottom'
+                                    } 
+                                }                     
                             }
                         });
                         </script>
@@ -74,11 +76,13 @@
                                 }]
                             },
                             options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
+                                plugins: {
+                                    subtitle: {
+                                        display: true,
+                                        text: {% if RDA_protein > 100 %}"You've exceed your protein limit for the day!"{% else %}""{% endif %},
+                                        position: 'bottom'
+                                    } 
+                                }                     
                             }
                         });
                         </script>
@@ -106,11 +110,13 @@
                                 }]
                             },
                             options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
+                                plugins: {
+                                    subtitle: {
+                                        display: true,
+                                        text: {% if RDA_na > 100 %}"You've exceed your sodium limit for the day!"{% else %}""{% endif %},
+                                        position: 'bottom'
+                                    } 
+                                }                     
                             }
                         });
                         </script>
@@ -137,9 +143,11 @@
                                 }]
                             },
                             options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
+                                plugins: {
+                                    subtitle: {
+                                        display: true,
+                                        text: {% if RDA_carbs > 100 %}  "You've exceed your carb limit for the day!"{% endif %},
+                                        position: 'bottom'
                                     }
                                 }
                             }
