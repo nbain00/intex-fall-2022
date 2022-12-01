@@ -27,7 +27,7 @@
                                 labels: ['water', 'water to go'],
                                 datasets: [{
                                     label: 'amount',
-                                    data: [{{RDA_water}}, {{RDA_waterNOT}}],
+                                    data: [{{chart_water}}, {{chart_waterNOT}}],
                                     backgroundColor: [                                       
                                         'rgba(54, 162, 235, 0.2)',
                                         'rgba(25, 80, 115, 0.2)',
@@ -43,9 +43,13 @@
                                 plugins: {
                                     subtitle: {
                                         display: true,
-                                        text: {% if RDA_water > 100 %}"You've exceed your water limit for the day!"{% else %}""{% endif %},
+                                        text: {% if chart_water > 100 %}"You've exceed your water limit for the day!"{% else %}""{% endif %},
                                         position: 'bottom'
-                                    } 
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: "Daily Target: " + {{RDA_water}} + " mL"
+                                    }
                                 }                     
                             }
                         });
@@ -61,7 +65,7 @@
                                 labels: ['protein', 'protein to go'],
                                 datasets: [{
                                     label: 'amount',
-                                    data: [{{RDA_protein}}, {{RDA_proteinNOT}}],
+                                    data: [{{chart_protein}}, {{chart_proteinNOT}}],
                                     backgroundColor: [
                                         'rgba(211, 167, 55, 0.8)',
                                         'rgba(105, 83, 27, 0.8)',
@@ -79,8 +83,12 @@
                                 plugins: {
                                     subtitle: {
                                         display: true,
-                                        text: {% if RDA_protein > 100 %}"You've exceed your protein limit for the day!"{% else %}""{% endif %},
+                                        text: {% if chart_protein > 100 %}"You've exceed your protein limit for the day!"{% else %}""{% endif %},
                                         position: 'bottom'
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: "Daily Target: " + Math.round({{RDA_protein}},2) + " grams"
                                     } 
                                 }                     
                             }
@@ -97,7 +105,7 @@
                                 labels: ['sodium', 'sodium to go'],
                                 datasets: [{
                                     label: 'amount',
-                                    data: [{{RDA_na}}, {{RDA_naNOT}}],
+                                    data: [{{chart_na}}, {{chart_naNOT}}],
                                     backgroundColor: [
                                         'rgba(211, 69, 55, 0.8)',
                                         'rgba(105, 35, 27, 0.6)',
@@ -113,9 +121,13 @@
                                 plugins: {
                                     subtitle: {
                                         display: true,
-                                        text: {% if RDA_na > 100 %}"You've exceed your sodium limit for the day!"{% else %}""{% endif %},
+                                        text: {% if chart_na > 100 %}"You've exceed your sodium limit for the day!"{% else %}""{% endif %},
                                         position: 'bottom'
-                                    } 
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: "Daily Target: " + {{RDA_na}} + " mg"
+                                    }
                                 }                     
                             }
                         });
@@ -131,7 +143,7 @@
                                 labels: ['carbohydrates', 'carbs to go'],
                                 datasets: [{
                                     label: 'amount',
-                                    data: [{{RDA_carbs}}, {{RDA_carbsNOT}}],
+                                    data: [{{chart_carbs}}, {{chart_carbsNOT}}],
                                     backgroundColor: [
                                         'rgba(151, 55, 211, 0.8)',
                                         'rgba(75, 26, 100, 0.8)'
@@ -146,8 +158,12 @@
                                 plugins: {
                                     subtitle: {
                                         display: true,
-                                        text: {% if RDA_carbs > 100 %}  "You've exceed your carb limit for the day!"{% endif %},
+                                        text: {% if chart_carbs > 100 %}  "You've exceed your carb limit for the day!"{% endif %},
                                         position: 'bottom'
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: "Daily Target: " + {{RDA_carbs}} + " grams"
                                     }
                                 }
                             }
