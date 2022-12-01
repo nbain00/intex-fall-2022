@@ -37,15 +37,17 @@
             </select>          
             <br><br>
 
-            <label for='kidney_stage'>Select Kidney Stage:</label> 
-            <select name='kidney_stage' id ="kidney_stage" required>
+            <label for='kidney_stage'>Kidney Stage:</label> 
+            <select name='kidney_stage' id ="kidney_stage">
+
                 {% for names in stage %}
                 <option value="{{names.id}}">{{names.name}}</option>
                 {% endfor %}
             </select>
 
-            <label for='comorbidity'>Select Cormobity:</label> 
-            <select name='comorbidity' id ="comorbidity" multiple required>
+            <label for='comorbidity'>Comorbidity &#40;if any&#41;:</label> 
+            <select name='comorbidity' id ="comorbidity" multiple>
+
                 {% for names in comor %}
                 <option value="{{names.id}}">{{names.name}}</option>
                 {% endfor %}
