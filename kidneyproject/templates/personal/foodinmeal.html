@@ -5,24 +5,26 @@
 {% endblock %}
 {% block content%}
 <h2><b>Add a New Food to {{ mealtypekey|capfirst }}</b></h2>
-<a href="{% url 'add-food' userid=pat.id %}"><h3>Add New Food to Repository</h3></a>    
+<div style="display: flex; justify-content: center;">
+<div class="dropdown" style="margin-right: 4px">
+  <p onclick="myFunction()" class="btn btn-primary">Search for food</p>
+  <div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> 
+      {% for foods in food %}
+      <option value="{{foods.id}}" onclick="secondFunction({{foods.id}},'{{foods.name}}')">{{foods.name}}</option>
+      {% endfor %}
+  </select>
+  </div>
+</div>
+<div>
+  <a class = "btn btn-primary" style="margin-left: 4px" href="{% url 'add-food' userid=pat.id %}">Add food</a>
+  </div>
+</div> 
         <form name="form" action="{% url 'food-in-meal' userid=pat.id mealtype=mealtypekey logid=logidkey date1=showDate %}" method="post">
             {% csrf_token %}
             <input type="hidden" value="{{pat.id}}" name="userid">
             <input type="hidden" value="{{mealtypekey}}" name="mealtype">
             <input type="hidden" value="{{logidkey}}" name="logid">
-            <br>
-            <div class="dropdown">
-                <p onclick="myFunction()" class="dropbtn">Search for food</p>
-                <div id="myDropdown" class="dropdown-content">
-                  <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> 
-                    {% for foods in food %}
-                    <option value="{{foods.id}}" onclick="secondFunction({{foods.id}},'{{foods.name}}')">{{foods.name}}</option>
-                    {% endfor %}
-                </select>
-                </div>
-              </div>
-              <br>
             <label for="food">Name of Food:</label>
             <select name="food" id ="food" required>
                 {% for foods in food %}
@@ -38,11 +40,12 @@
                 {% endif %}
             </label>
             <input id="amount" type="number" name="amount" required>
-            <br>    
+            <br><br>    
             <input type="submit" value="Add">
-        </form>     
+        </form>
+        <br><br>  
         <div class='text-center'>
-            <a href="{% url 'journal' userid=pat.id date1='today' %}"><h3>Go Back to Journal</h3></a>
+            <a href="{% url 'journal' userid=pat.id date1='today' %}"><h3>Return to Journal</h3></a>
             <br>
             <br>
 

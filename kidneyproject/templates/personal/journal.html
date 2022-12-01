@@ -192,13 +192,13 @@
                 label: 'amount',
                 data: [{{chart_k}}, {{chart_kNOT}}],
                 backgroundColor: [
-                    'rgba(211, 167, 55, 0.8)',
-                    'rgba(105, 83, 27, 0.8)',
+                    'rgba(78, 219, 68, 0.8)',
+                    'rgba(34, 105, 34, 0.8)',
 
                 ],
                 borderColor: [
-                    'rgba(211, 167, 55, 1)',
-                    'rgba(211, 167, 55, 1)',
+                    'rgba(78, 219, 68, 1)',
+                    'rgba(78, 219, 68, 1)',
 
                 ],
                 borderWidth: 1
@@ -232,13 +232,13 @@
                 label: 'amount',
                 data: [{{chart_phos}}, {{chart_phosNOT}}],
                 backgroundColor: [
-                    'rgba(211, 167, 55, 0.8)',
-                    'rgba(105, 83, 27, 0.8)',
+                    'rgba(255, 42, 242, 0.8)',
+                    'rgba(123, 21, 121, 0.8)',
 
                 ],
                 borderColor: [
-                    'rgba(211, 167, 55, 1)',
-                    'rgba(211, 167, 55, 1)',
+                    'rgba(255, 42, 242, 1)',
+                    'rgba(255, 42, 242, 1)',
 
                 ],
                 borderWidth: 1
@@ -262,28 +262,38 @@
 </div>
 </div>
 <div class="container">
-    <h3>Breakfast</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='breakfast' logid=0 date1=showDate%}">Add food</a>
+    <div style="display: flex; justify-content: center">
+        <h3 style="margin-right:10px">Breakfast</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='breakfast' logid=0 date1=showDate%}">Add food</a>
+    </div>
     <br>
+    <div style="text-align: left; display: flex; justify-content: center">
     {% for food in breakfast %}
         {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
         <br>
     {% endfor %}
+    </div>
     <br> 
-    <h3>Lunch</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='lunch' logid=0 date1=showDate%}">Add food</a>
+    <div style="display: flex; justify-content: center">
+        <h3 style="margin-right:10px">Lunch</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='lunch' logid=0 date1=showDate%}">Add food</a>
+    </div>
     <br>
     {% for food in lunch %}
         {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
         <br>
     {% endfor %}
     <br> 
-    <h3>Dinner</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='dinner' logid=0 date1=showDate%}">Add food</a>
+    <div style="display: flex; justify-content: center">
+        <h3 style="margin-right:10px">Dinner</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='dinner' logid=0 date1=showDate%}">Add food</a>
+    </div>
     <br>
     {% for food in dinner %}
         {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
         <br>
     {% endfor %}
     <br> 
-    <h3>Snacks</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='snacks' logid=0 date1=showDate%}">Add food</a>
+    <div style="display: flex; justify-content: center">
+        <h3 style="margin-right:10px">Snacks</h3><a class = "btn btn-primary" href="{% url 'food-in-meal' userid=pat.id mealtype='snacks' logid=0 date1=showDate%}">Add food</a>
+    </div>
     <br>
     {% for food in snacks %}
         {{food}} - {{food.amount}} {% if pat.unit_preference == 'us' %}oz{% else %}g{% endif %}
