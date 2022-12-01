@@ -13,22 +13,74 @@
             </header>
 <body>
     <style>
-        .graphs {
-            display: flex;
-            position: absolute;
-            flex-direction: column;
-            flex-wrap: nowrap;
-    
+        .whole {
+            display: grid;
+            grid-template:
+                    "a a b"
+                    "a a b";
         }
-        .items {
-            display: inline-flex;
-            height: 25vh;
-            width: 15vw;
+
+        .graphs-all {
+            display: grid;
+            grid-area: "a";
+            grid-template:
+                    "a b"
+                    "c d";
         }
+
+        .each-graph {
+            width: 300px;
+            height: 300px;
+        }
+
+        .recco {
+            grid-column: 2;
+            width: auto;
+        }
+
     </style>
+    <div id="whole" class="whole">
+        <div id="graphs" class="graphs-all">
+            <div id="graph" class="each-graph" style='grid-area: "a/a/a/a"'>
+                <canvas id="myChart"></canvas>
+            </div>
+            <div id="graph2" class="each-graph" style='grid-area: "b/b/b/b"'>
+                <canvas id="myChart4"></canvas>
+            </div>
+            <div id="graph3" class="each-graph" style='grid-area: "c/c/c/c"'>
+                <canvas id="myChart2"></canvas>
+            </div>
+            <div id="graph4" class="each-graph" style='grid-area: "d/d/d/d"'>
+                <canvas id="myChart6"></canvas>
+            </div>
+        </div>
+        <div id="text" class="recco" style="text-align: left">
+            <p>We want to help you suceed.  Here are some help tips to get you started, but remember
+                that it's also important to speak with medical professionals to formulate your health plan:
+            </p>
+            <ol>
+                <li><b>Avoid sodium!</b>  Salt can be damaging.  Choose foods with the ‘low sodium’ label.  Avoid processed foods as these use lots of sodium.  Use spices other than salt to flavor your foods.</li>
+                <li><b>Moderate protein!</b>  While protein is an essential nutrient, overconsuming it can produce too much weight for your kidneys to handle.  Speak with your doctor about what amount of protein is right for you.</li>
+                <li><b>Prepare food in a healthy way!</b>  Instead of frying, grill.  Use less fat.  Avoid trans and saturated fats.</li>
+                <li><b>Lower Phosphorus!</b>  <a href="https://www.mayoclinic.org/diseases-conditions/chronic-kidney-disease/expert-answers/food-and-nutrition/faq-20058408#:~:text=Check%20food%20labels%20carefully%20%20%20%20Higher,sour%20%20...%20%205%20more%20rows%20">Mayo Clinic’s advice</a> on finding low-phosphorus food.</li>
+                <li><b>Balance your potassium levels!</b>  <a href="https://www.niddk.nih.gov/-/media/Files/Health-Information/Health-Professionals/Kidney-Disease/PotassiumTipsforPeopleCKD_EN.pdf"> NIH’s advice</a> for managing your potassium levels.</li>
+                </ol>            
+                
+            <p> Some Recommended Foods
+                <ul>
+                <li>-Lean cuts of meat</li>
+                <li>-Poultry</li>
+                <li>-Fish</li>
+                <li>-Beans</li>
+                <li>-Vegetables</li>
+                <li>-Fruits</li>
+                <li>-Low-fat dairy</li>
+                </ul>
+            </p>
+        </div>
+    </div>
     <div class="graphs2">
     <div class = "items" >
-        <canvas id="myChart" ></canvas>
             <script>
             const ctx = document.getElementById('myChart').getContext('2d');
             const myChart = new Chart(ctx, {
@@ -66,7 +118,6 @@
             </script>
     </div>
     <div class = "items" >
-        <canvas id="myChart4" ></canvas>
         <script>
         const ctx4 = document.getElementById('myChart4').getContext('2d');
         const myChart4 = new Chart(ctx4, {
@@ -106,7 +157,6 @@
         </script>
     </div>
     <div class = "items" >
-        <canvas id="myChart2" ></canvas>
             <script>
             const ctx2 = document.getElementById('myChart2').getContext('2d');
             const myChart2 = new Chart(ctx2, {
@@ -144,7 +194,6 @@
             </script>
     </div>
     <div class = "items" >
-        <canvas id="myChart6" ></canvas>
         <script>
         const ctx6 = document.getElementById('myChart6').getContext('2d');
         const myChart6 = new Chart(ctx6, {
@@ -180,30 +229,6 @@
         });
         </script>
     </div>
-    </div>
-    <div style="text-align: left">
-        <p>We want to help you suceed.  Here are some help tips to get you started, but remember
-            that it's also important to speak with medical professionals to formulate your health plan:
-        </p>
-        <ol>
-            <li><b>Avoid sodium!</b>  Salt can be damaging.  Choose foods with the ‘low sodium’ label.  Avoid processed foods as these use lots of sodium.  Use spices other than salt to flavor your foods.</li>
-            <li><b>Moderate protein!</b>  While protein is an essential nutrient, overconsuming it can produce too much weight for your kidneys to handle.  Speak with your doctor about what amount of protein is right for you.</li>
-            <li><b>Prepare food in a healthy way!</b>  Instead of frying, grill.  Use less fat.  Avoid trans and saturated fats.</li>
-            <li><b>Lower Phosphorus!</b>  <a href="https://www.mayoclinic.org/diseases-conditions/chronic-kidney-disease/expert-answers/food-and-nutrition/faq-20058408#:~:text=Check%20food%20labels%20carefully%20%20%20%20Higher,sour%20%20...%20%205%20more%20rows%20">Mayo Clinic’s advice</a> on finding low-phosphorus food.</li>
-            <li><b>Balance your potassium levels!</b>  <a href="https://www.niddk.nih.gov/-/media/Files/Health-Information/Health-Professionals/Kidney-Disease/PotassiumTipsforPeopleCKD_EN.pdf"> NIH’s advice</a> for managing your potassium levels.</li>
-            </ol>            
-            
-        <p> Some Recommended Foods
-            <ul>
-            <li>-Lean cuts of meat</li>
-            <li>-Poultry</li>
-            <li>-Fish</li>
-            <li>-Beans</li>
-            <li>-Vegetables</li>
-            <li>-Fruits</li>
-            <li>-Low-fat dairy</li>
-            </ul>
-        </p>
     </div>
 </body>
 
