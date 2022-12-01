@@ -169,8 +169,32 @@ def foodJournalView(request, userid, date1) :
         "k_mg" : 0,
         "na_mg" : 0,
         "total_saturated_fat_g" : 0,
-        "total_unsaturated_fat_g" : 0
+        "total_unsaturated_fat_g" : 0,
+        "RDA_water" : 0,
+        "RDA_protein" : 0,
+        "RDA_na" : 0,
+        "RDA_carbs" : 0,
+        "RDA_k" : 0,
+        "RDA_phos" : 0,
+        "chart_water" : 0,
+        "chart_protein" : 0,
+        "chart_na" : 0,
+        "chart_carbs" : 0,
+        "chart_k" : 0,
+        "chart_phos" : 0
     }
+    RDA_water = 3700
+    context["RDA_water"] = RDA_water
+    RDA_protein = (float(data.weight) / 2.2046) * 0.6
+    context["RDA_protein"] = RDA_protein
+    RDA_na = 1500
+    context["RDA_na"] = RDA_na
+    RDA_carbs = 300
+    context["RDA_carbs"] =  RDA_carbs
+    RDA_k = 2500
+    context["RDA_k"] = RDA_k
+    RDA_phos = 800
+    context["RDA_phos"] : RDA_phos
     #Calculate food nutrients
     foods =[]
     for p in Patient.objects.raw("SELECT pp.id, amount, calories_kj, water_g, protein_g, total_fat_g, total_fiber_g, alcohol_g, total_sugars_g, added_sugars_g, total_carbs_g, ca_mg, phos_mg, k_mg, na_mg, total_saturated_fat_g, total_unsaturated_fat_g FROM personal_patient pp INNER JOIN personal_meallog ml ON pp.id = ml.patient_id INNER JOIN personal_foodinmeal fm ON ml.id = fm.meal_log_id INNER JOIN personal_food f ON fm.food_id = f.id WHERE pp.id =" + str(userid) + " AND log_date = '" + date1 + "'") :
@@ -184,10 +208,29 @@ def foodJournalView(request, userid, date1) :
         per_value = gram_amount / 100
         final_value = per_value * food.calories_kj
         context["calories_kj"] += final_value
+
+        #water
         final_value = per_value * float(food.water_g)
         context["water_g"] += final_value
+        macrovalue = (final_value / RDA_water)*100
+        context["chart_water"] = macrovalue
+        if macrovalue > 100 :
+            context["chart_waterNOT"] = 0
+        else : 
+            context["chart_waterNOT"] = 100 - macrovalue
+
+        #Protein
         final_value = per_value * float(food.protein_g)
         context["protein_g"] += final_value
+        final_value = per_value * float(food.protein_g)
+        context["protein_g"] += final_value
+        macrovalue = (final_value / RDA_protein)*100
+        context["chart_protein"] = macrovalue
+        if macrovalue > 100 :
+            context["chart_proteinNOT"] = 0
+        else : 
+            context["chart_proteinNOT"] = 100 - macrovalue
+        
         final_value = per_value * float(food.total_fat_g)
         context["total_fat_g"] += final_value
         final_value = per_value * float(food.total_fiber_g)
@@ -198,16 +241,51 @@ def foodJournalView(request, userid, date1) :
         context["total_sugars_g"] += final_value
         final_value = per_value * float(food.added_sugars_g)
         context["added_sugars_g"] += final_value
+
+        #carbs
         final_value = per_value * float(food.total_carbs_g)
         context["total_carbs_g"] += final_value
         final_value = per_value * float(food.ca_mg)
+        macrovalue = (final_value / RDA_carbs)*100
+        context["chart_carbs"] = macrovalue
+        if macrovalue > 100 :
+            context["chart_carbsNOT"] = 0
+        else :
+            context["chart_carbsNOT"] = 100 - macrovalue
+
+        final_value = per_value * float(food.ca_mg)
         context["ca_mg"] += final_value
+
+        #phos
         final_value = per_value * float(food.phos_mg)
         context["phos_mg"] += final_value
+        macrovalue = (final_value / RDA_phos)*100
+        context["chart_phos"] = macrovalue
+        if macrovalue > 100 :
+            context["chart_phosNOT"] = 0
+        else : 
+            context["chart_phosNOT"] = 100 - macrovalue
+
+        #k
         final_value = per_value * float(food.k_mg)
         context["k_mg"] += final_value
+        macrovalue = (final_value / RDA_k)*100
+        context["chart_k"] = macrovalue
+        if macrovalue > 100 :
+            context["chart_kNOT"] = 0
+        else : 
+            context["chart_kNOT"] = 100 - macrovalue
+
+        #na
         final_value = per_value * float(food.na_mg)
         context["na_mg"] += final_value
+        macrovalue = (final_value / RDA_na)*100
+        context["chart_na"] = macrovalue
+        if macrovalue > 100 :
+            context["chart_naNOT"] = 0
+        else : 
+            context["chart_naNOT"] = 100 - macrovalue
+
         final_value = per_value * float(food.total_saturated_fat_g)
         context["total_saturated_fat_g"] += final_value
         final_value = per_value * float(food.total_unsaturated_fat_g)
@@ -321,7 +399,7 @@ def profileEditView(request, userid) :
         profile.unit_preference = request.POST['unit_preference']
         profile.save()
 
-        return render(request, 'personal/index.html', context)
+        return indexPageView(request)
 
     else:
         return render(request, 'personal/profileview.html', context)
