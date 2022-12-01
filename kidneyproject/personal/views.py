@@ -55,7 +55,8 @@ def indexPageView(request) :
         final_value = per_value * float(food.water_g)
         #getting the values for the water
         context["water_g"] += final_value
-        watervalue = (final_value / RDA_water)*100
+        macrovalue = (final_value / RDA_water)*100
+        context["RDA_water"] = macrovalue
         if macrovalue > 100 :
             context["RDA_waterNOT"] = 0
         else : 
