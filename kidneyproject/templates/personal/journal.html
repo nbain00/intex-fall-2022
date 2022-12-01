@@ -168,7 +168,7 @@
             plugins: {
                 subtitle: {
                     display: true,
-                    text: {% if chart_carbs > 100 %}  "You've exceed your carb limit for the day!"{% endif %},
+                    text: {% if chart_carbs > 100 %}  "You've exceed your carb limit for the day!"{% else %}""{% endif %},
                     position: 'bottom'
                 },
                 title: {
