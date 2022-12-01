@@ -22,6 +22,7 @@ class Patient(models.Model) :
     kidney_stage = models.ForeignKey(KidneyStage, on_delete=models.DO_NOTHING)
     comorbidity = models.ManyToManyField(Comorbidity, blank=True)
     unit_preference = models.CharField(max_length=20)
+    gender = models.CharField(max_length=1)
 
     def __str__(self) :
         return (self.first_name + ' ' + self.last_name)

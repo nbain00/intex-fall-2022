@@ -25,7 +25,7 @@
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
         data: {
-            labels: [{% for data in levels %} '{{data.log_date}}', {%endfor%}],
+            labels: [{% for data in dates %} '{{data.log_date}}', {%endfor%}],
             datasets: [ {% for data in serum_types %}
             {
                 data: [{% for data1 in levels %} {% if data1.name == data.name %} {{data1.level}}, {% endif %} {% endfor %}],
